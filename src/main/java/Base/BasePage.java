@@ -58,55 +58,38 @@ public class BasePage  {
 	    //System.out.println("App page opened");
 	  }
 	  
-	  public void WaitForElementTobeFoundByXpath(String xpath) {
-	    WebDriverWait w = new WebDriverWait(driver, 120);
-	    w.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+	  public void WaitForElementTobeFound(By Element,long TIMEOUT) {
+	    WebDriverWait w = new WebDriverWait(driver, TIMEOUT);
+	    w.until(ExpectedConditions.presenceOfElementLocated(Element));
 	  }
 	  
-	  public void WaitForElementTobeFoundByID(String ID) {
-	    WebDriverWait w = new WebDriverWait(driver, 50L);
-	    w.until(ExpectedConditions.presenceOfElementLocated(
-	      By.xpath(ID)));
-	  }
-	  public void WaitForElementTobeFoundByName(String name) {
-		    WebDriverWait w = new WebDriverWait(driver, 120L);
-		    w.until(ExpectedConditions.presenceOfElementLocated(
-		      By.name(name)));
-		  }
-	  public void ClickElementByXpath(String xpath) {
-		WaitForElementTobeFoundByXpath(xpath);
-	    driver.findElement(By.xpath(xpath)).click();
-	
-	
-	  //  System.out.println( "  The button with the following Text has been clicked "+driver.findElement(By.xpath(xpath)).getText());
-	  }
 	  
-	  public void ClickElementByID(String ID) {
+	  public void ClickElement(By Element) {
 		  
-	    driver.findElement(By.xpath(ID)).click();
+	    driver.findElement(Element).click();
 	  }
 	  
-	  public void SendTextByXpath(String xpath, String str)
+	  public void SendText(By Element, String str,Long TIMEOUT)
 	  {
-		  WaitForElementTobeFoundByXpath(xpath);
-	    driver.findElement(By.xpath(xpath)).sendKeys(str);
+		 WaitForElementTobeFound(Element, TIMEOUT);
+	    driver.findElement(Element).sendKeys(str);
 	  }
 	  
-	  public void SendTextByName(String name, String str)
-	  {
-		  WaitForElementTobeFoundByName(name);
-		  driver.findElement(By.name(name)).clear();
-	    driver.findElement(By.name(name)).sendKeys(str);
-	  }
-	  public void SendTextByName(String name, Keys key)
-	  {
-		  WaitForElementTobeFoundByName(name);
-	    driver.findElement(By.name(name)).sendKeys(key);
-	  }
-	  
-	  public void SendTextByID(String ID, String str) {
-	    driver.findElement(By.xpath(ID)).sendKeys(str);
-	  }
+//	  public void SendTextByName(String name, String str)
+//	  {
+//		  WaitForElementTobeFoundByName(name);
+//		  driver.findElement(By.name(name)).clear();
+//	    driver.findElement(By.name(name)).sendKeys(str);
+//	  }
+//	  public void SendTextByName(String name, Keys key)
+//	  {
+//		  WaitForElementTobeFoundByName(name);
+//	    driver.findElement(By.name(name)).sendKeys(key);
+//	  }
+//	  
+//	  public void SendTextByID(String ID, String str) {
+//	    driver.findElement(By.xpath(ID)).sendKeys(str);
+//	  }
 	  public void SimpleWait()
 	  {
 		  //System.out.println("wait started");
@@ -176,10 +159,10 @@ public class BasePage  {
 		  executor.executeScript("arguments[0].click();", element);
 	  }
 	  
-	  public String findTextByXpath(String xpath)
+	  public String findText(By Element,Long TIMEOUT)
 	  {
-		  WaitForElementTobeFoundByXpath(xpath);
-		  return driver.findElement(By.xpath(xpath)).getText();
+		WaitForElementTobeFound(Element, TIMEOUT);
+		  return driver.findElement(Element).getText();
 		  
 	  }
 	  public String getPageTitle()
